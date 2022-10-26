@@ -11,6 +11,7 @@ urlpatterns = [
   # App urls
   path('', include('core.urls', namespace="core")),
   path('', include('users.urls', namespace="users")),
+  path('', include('ecommerce.urls', namespace="ecommerce")),
   # debug urls
   path("__debug__", include('debug_toolbar.urls')),
 ]
