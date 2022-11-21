@@ -34,6 +34,7 @@ class UserProfile(TimeStampedModel, ActivatorModel, models.Model):
   Stores a single user profile entry related to :model:`auth.User`
   '''
   class Meta:
+    verbose_name        = 'User profile'
     verbose_name_plural = 'User profiles'
     ordering            = ["id"]
   # atrributes

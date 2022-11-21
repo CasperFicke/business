@@ -1,0 +1,2 @@
+# ecommerce/templatetags/init.py
+

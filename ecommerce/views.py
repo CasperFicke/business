@@ -90,7 +90,8 @@ class ItemView(generic.DetailView):
   def dispatch(self, *args, **kwargs):
     return super().dispatch(*args, **kwargs)
 
-# 
+# Add item from stock to cart or,
+# remove item from cart back to stock
 @login_required
 @ajax_required
 def add_or_remove_item(request):
@@ -151,31 +152,31 @@ def add_or_remove_item(request):
   item_total_price = cart.amount()
   item_stock       = stock
   data = {
-      "result"  : "Success",
-      "message" : f'{item.title} has been {action}d to your cart',
-      "redirect": False,
-      "data": {
-        "status": action,
-        "item_count": item_count,
-        "item_total_price": item_total_price,
-        "stock": item_stock
-      }
+    "result"  : "Success",
+    "message" : f'{item.title} has been {action}d to your cart',
+    "redirect": False,
+    "data": {
+      "status"          : action,
+      "item_count"      : item_count,
+      "item_total_price": item_total_price,
+      "stock"           : item_stock
     }
+  }
   return JsonResponse(data)
 
 # 
 class CartView(generic.TemplateView):
 	"""
-    TemplateView to display all items in a users cart.
+  TemplateView to display all items in a users cart.
 
-    **Context**
+  **Context**
 
-    Stripe publishable key.
+  Stripe publishable key.
 
-    **Template:**
+  **Template:**
 
-    :template:`ecommerce/cart.html`
-    """
+  :template:`ecommerce/cart.html`
+  """
 	template_name = "ecommerce/cart.html"
 
 	def get_context_data(self, **kwargs):
@@ -233,15 +234,17 @@ def stripe_payment(request):
   ecommerce_manager = EcommerceManager(request.user, token=token, source_id = source_id)
   invoice           = ecommerce_manager.post_invoice()
   match invoice["status"]:
+    # success
     case "200"|"201"|"202"|"203"|"204":
       data["redirect"] = "/"
       data["result"]   = "Success"
       data["message"]  = invoice["message"]
+    # else (=error)
     case _:
       data["message"] = invoice["message"]
   return JsonResponse(data)
 
-
+# Update stripe source (= the cart)
 @login_required
 @ajax_required
 def update_source(request):
