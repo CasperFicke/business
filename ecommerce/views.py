@@ -181,7 +181,7 @@ class CartView(generic.TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context["stripe_key"] = settings.STRIPE_PUBLISHABLE_KEY
+		context["stripe_key"] = os.getenv('STRIPE_PUBLISHABLE_KEY')
 		return context
 
 	@method_decorator(login_required)
@@ -207,7 +207,7 @@ class CheckoutView(generic.TemplateView):
 
   def get_context_data(self, **kwargs):
     context               = super().get_context_data(**kwargs)
-    context["stripe_key"] = settings.STRIPE_PUBLISHABLE_KEY
+    context["stripe_key"] = os.getenv('STRIPE_PUBLISHABLE_KEY')
     ecommerce_manager     = EcommerceManager(self.request.user)
     context["sources"]    = ecommerce_manager.get_source_data()
     try:
