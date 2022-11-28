@@ -60,8 +60,8 @@ class ItemsView(generic.ListView):
 
   :template:`ecommerce/items.html`
   """
-  model = Item
-  template_name = "ecommerce/items.html"
+  model            = Item
+  template_name    = "ecommerce/items.html"
   paginate_by: int = 10
 
   @method_decorator(login_required)

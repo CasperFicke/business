@@ -9,7 +9,7 @@ from . import models
 # register models
 @admin.register(models.Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'status')
 
 @admin.register(models.CartItem)
 class CartItemAdmin(admin.ModelAdmin):

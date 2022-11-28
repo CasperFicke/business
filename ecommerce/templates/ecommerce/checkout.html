@@ -67,7 +67,7 @@
         </h4>
         {% for object in request.user.cart.items.all %}
           <p class="item-list-{{object.item.id}}">{% item_button_v2 object.item %}
-            <a href="{{object.item.content_object.get_absolute_url}}">{{object.item.content_object.title}}</a> <span class="price">£{{object.amount|div:100}}</span></p>
+            <a href="{{object.item.get_absolute_url}}">{{object.item.title}}</a> <span class="price">£{{object.amount|div:100}}</span></p>
         {% endfor %}
         <hr>
         <p>Total <span class="price" style="color:black"><b class="item-total-price">£{{ request.user.cart.amount|div:100 }}</b></span></p>

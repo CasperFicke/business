@@ -34,7 +34,7 @@ class Item(
   variable_price     = MoneyField(
     max_digits       = 14, 
     decimal_places   = 2, 
-    default_currency ='EUR', 
+    default_currency = 'EUR', 
     null             = True,
     blank            = True)
 
@@ -46,7 +46,7 @@ class Item(
   def get_absolute_url(self):
     return f'/item/{self.slug}/'
     
-# Cartitemmanager; 
+# Cartitem manager; 
 class CartItemManager(models.Manager):
   """
   A Manager for Cart item objects
